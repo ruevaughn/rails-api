@@ -23,5 +23,11 @@ RSpec.describe Article, type: :model do
       expect(article).not_to be_valid
       expect(article.errors.messages[:slug]).to include("can't be blank")
     end
+
+    it 'should uniqueness of the slug' do
+      article = create :article
+      invalid_article = build :article, slug: article.slug
+      expect(invalid_article).not_to be_valid
+    end
   end
 end
